@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using masterdata_integration.models;
+using System.Net.Mail;
+using System.Net;
 
 namespace masterdata_integration
 {
@@ -21,6 +23,50 @@ namespace masterdata_integration
         public frmMain()
         {
             InitializeComponent();
+            //SendMail("mesutkaya2000@gmail.com","Ahmet Akan","060418","Samet Gıda");
+
+        }
+
+        public static void SendMail(string personelMail,string salesmanName, string routeCode, string customerName)
+        {
+            try
+            {
+                string mailbody;
+
+                mailbody = "<table style='background-color:#fff;padding:10px;width:620px;text-align:left;border-top:10px solid #155ca9;border-bottom:10px solid #155ca9;border-left:10px solid #155ca9;border-right:10px solid #155ca9' width='630' cellspacing='0' cellpadding='0'><tbody><tr><td><table style='background-color:#ffffff;' width='100%' cellspacing='0' cellpadding = '0'>  <tbody><tr>" +
+                    "<td style = 'padding: 10px;'><a href = 'https://www.salesart.io/' target = '_blank'  > " +
+                    "<img src = 'https://www.salesart.io/images/logo.png' alt = '' width = '220' height = '50' border = '0' /></a></td>" +
+                    "<td style = 'color: #1a2640; font-family: Arial; font-size: 13px;margin-left:50px;' align = 'right' > (0530) 915 9055 <span style = 'color: #a5b9c5; font-size: 24px;' >|</span> <a style = 'text-decoration: none; color: #1a2640;' href = '#' target = '_blank' data - saferedirecturl = '#'>www.salesart.io </a> &nbsp; &nbsp; &nbsp;</td></tr><tr><td colspan = '2' ><hr style='border: 1px dashed black;'/> </td></tr>" +
+                    "<tr><td style = 'padding: 10px; font-size: 12px; font-family: Arial;' colspan = '2' ><p style = 'margin: 0 0 10px 0;'> " +
+                    "Sayın <strong> Hedef Gıda </strong>,</p><p style = 'margin: 0 0 10px 0;' > " +
+                    "<p> Satış Temsilcisi : <strong>" + salesmanName + "</strong> </p> " +
+                    "<p> Rota Kodu : <strong>" + routeCode + "</strong> </p> " +
+                    "<p> Müşteri Adı : <strong>" + customerName + "</strong> </p>" +
+                    "olan rota planında <strong>" + routeCode + "</strong> olan  Rota Kodu yanlış girilmiştir. Düzeltmenizi rica ederiz." +
+                    " <p style = 'margin: 0 0 0 0;' >" +
+                    "Her türlü sorunuzda bize <a style = 'color: #000000;' href = 'mailto:destek@bil-gel.com.tr' target = '_blank'> destek@bil-gel.com.tr </a> adresinden ulaşabilir veya" +
+                    "<a href = 'tel:0530 915 9055' target = '_blank' > (0530) 915 9055 </a> nolu telefondan Destek Birimi ile görüşebilirsiniz.</p><p style = 'margin: 20px 0 0 0;' > Saygılarımızla,</p><p style = 'margin: 5px 0 0 0;' > Bil-Gel Destek Birimi</p></td></tr><tr><td colspan = '2' ><hr style='border: 1px dashed black;'/></td></tr><tr><td style = 'padding: 10px; color: #808080; font-size: 12px;' colspan = '2'><p style = 'margin: 0 0 0 0; font-family: Arial;' > Copyright &copy; 2021 Bil-Gel  | Tüm hakları saklıdır.</p></td></tr></tbody></table></td></tr></tbody></table> ";
+                MailMessage mesaj = new MailMessage();
+                mesaj.From = new MailAddress("mesutkaya@bil-gel.com.tr", "Bildirim");                
+                if (personelMail != null)
+                {
+                    mesaj.To.Add(personelMail);                    
+                }
+                mesaj.CC.Add("mucahitceviz@bil-gel.com.tr");
+                mesaj.Subject = "Bil-Gel Destek | Bildirim";
+                mesaj.Body = mailbody;
+                mesaj.IsBodyHtml = true;
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("mesutkaya@bil-gel.com.tr", "Mesut1905");
+                client.EnableSsl = true;
+                client.Send(mesaj);
+            }
+            catch (Exception ex)
+            {
+
+
+            }
         }
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
