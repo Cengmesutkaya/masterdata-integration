@@ -24,7 +24,6 @@ namespace masterdata_integration
         {
             InitializeComponent();
             //SendMail("mesutkaya2000@gmail.com","Ahmet Akan","060418","Samet Gıda");
-
         }
 
         public static void SendMail(string personelMail,string salesmanName, string routeCode, string customerName)
@@ -64,8 +63,6 @@ namespace masterdata_integration
             }
             catch (Exception ex)
             {
-
-
             }
         }
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
