@@ -15,6 +15,5 @@ namespace masterdata_integration
         public const string Salesman = "Satış Temsilcileri";
 
         public const string PaymentType = "Ödeme Planları";
-
     }
 }
